@@ -44,46 +44,48 @@ if (themeToggle) {
 }
 
 // Collapsible functionality for all sections
-document.querySelectorAll('.collapsible-header').forEach(header => {
-    header.addEventListener('click', () => {
-        const section = header.closest('.collapsible');
-        const content = section.querySelector('.collapsible-content');
-        const isExpanded = header.getAttribute('aria-expanded') === 'true';
-        
-        // Toggle the active state
-        section.classList.toggle('active');
-        
-        // Update ARIA attributes
-        header.setAttribute('aria-expanded', !isExpanded);
-        
-        // Toggle content visibility
-        if (!isExpanded) {
-            content.style.maxHeight = content.scrollHeight + 'px';
-            content.style.display = 'block';
-        } else {
-            content.style.maxHeight = '0';
-            setTimeout(() => {
-                content.style.display = 'none';
-            }, 300); // Match your transition time
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    // Handle collapsible sections
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const section = header.closest('.collapsible, .meet-card');
+            const content = section.querySelector('.collapsible-content');
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+            // Toggle active state
+            section.classList.toggle('active');
+            
+            // Update ARIA attributes
+            header.setAttribute('aria-expanded', !isExpanded);
+
+            // Handle meet page collapsible sections differently
+            if (header.closest('.meet-content')) {
+                if (!isExpanded) {
+                    content.style.maxHeight = `${content.scrollHeight}px`;
+                } else {
+                    content.style.maxHeight = '0';
+                }
+            }
+        });
+
+        // Add keyboard support
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
+            }
+        });
     });
 
-    // Add keyboard support
-    header.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            header.click();
-        }
-    });
-});
-
-// Initialize all sections as open
-document.querySelectorAll('.collapsible').forEach(section => {
-    const header = section.querySelector('.collapsible-header');
-    const content = section.querySelector('.collapsible-content');
-    
-    section.classList.add('active');
-    header.setAttribute('aria-expanded', 'true');
-    content.style.display = 'block';
-    content.style.maxHeight = content.scrollHeight + 'px';
+    // Initialize all sections on meet pages as open
+    if (document.querySelector('.meet-content')) {
+        document.querySelectorAll('.meet-content .collapsible').forEach(section => {
+            const header = section.querySelector('.collapsible-header');
+            const content = section.querySelector('.collapsible-content');
+            
+            section.classList.add('active');
+            header.setAttribute('aria-expanded', 'true');
+            content.style.maxHeight = `${content.scrollHeight}px`;
+        });
+    }
 });
