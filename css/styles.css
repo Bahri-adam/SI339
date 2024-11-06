@@ -1,0 +1,168 @@
+/* Base styles for mobile-first approach */
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --background-color: #ffffff;
+  --text-color: #1f2937;
+  --border-color: #e5e7eb;
+  --header-height: 60px;
+  --transition-speed: 0.3s;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1f2937;
+    --text-color: #f3f4f6;
+    --border-color: #374151;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base resets and typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Header styles */
+.header {
+  position: sticky;
+  top: 0;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.header h1 {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: var(--secondary-color);
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color var(--transition-speed);
+}
+
+.nav a:hover, 
+.nav a:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Meet list styles */
+.meet-list {
+  padding: 1rem;
+}
+
+.meet-card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--background-color);
+  transition: transform var(--transition-speed);
+}
+
+.meet-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Results table styles */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  overflow-x: auto;
+  display: block;
+}
+
+.results-table th,
+.results-table td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.results-table th {
+  background-color: var(--primary-color);
+  color: white;
+  position: sticky;
+  top: var(--header-height);
+}
+
+/* Search functionality */
+.search-container {
+  padding: 1rem;
+  position: sticky;
+  top: var(--header-height);
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+/* Accessibility focus styles */
+:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive breakpoints */
+@media (min-width: 640px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .meet-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+}
