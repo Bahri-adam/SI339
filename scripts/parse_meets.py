@@ -105,18 +105,18 @@ def generate_html(meet_info, team_scores, runners, output_path):
         </section>
 
         <!-- Team Scores Section -->
-        <section class="team-scores collapsible active slide-in">
-            <div class="collapsible-header">
+        <section class="collapsible" id="team-scores-section">
+            <div class="collapsible-header" tabindex="0" role="button" aria-expanded="true" aria-controls="team-scores-content">
                 <h2>Team Scores</h2>
             </div>
-            <div class="collapsible-content">
-                <div class="table-wrapper">
+            <div id="team-scores-content" class="collapsible-content">
+                <div class="table-scroll-container">
                     <table role="table" aria-label="Team Scores">
                         <thead>
                             <tr>
-                                <th scope="col">Place</th>
-                                <th scope="col">Team</th>
-                                <th scope="col">Score</th>
+                                <th scope="col" class="sticky-header">Place</th>
+                                <th scope="col" class="sticky-header">Team</th>
+                                <th scope="col" class="sticky-header">Score</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,21 +132,22 @@ def generate_html(meet_info, team_scores, runners, output_path):
             </div>
         </section>
 
+        
         <!-- Top Performers Section -->
-        <section class="top-performers collapsible active slide-in">
-            <div class="collapsible-header">
+        <section class="collapsible" id="top-performers-section">
+            <div class="collapsible-header" tabindex="0" role="button" aria-expanded="true" aria-controls="top-performers-content">
                 <h2>Top 10 Finishers</h2>
             </div>
-            <div class="collapsible-content">
-                <div class="table-wrapper">
+            <div id="top-performers-content" class="collapsible-content">
+                <div class="table-scroll-container">
                     <table role="table" aria-label="Top 10 Finishers">
                         <thead>
                             <tr>
-                                <th scope="col">Place</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Team</th>
+                                <th scope="col" class="sticky-header">Place</th>
+                                <th scope="col" class="sticky-header">Name</th>
+                                <th scope="col" class="sticky-header">Grade</th>
+                                <th scope="col" class="sticky-header">Time</th>
+                                <th scope="col" class="sticky-header">Team</th>
                             </tr>
                         </thead>
                         <tbody>
