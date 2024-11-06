@@ -1,91 +1,62 @@
-// Search functionality
-const searchInput = document.getElementById('search');
-const meetCards = document.querySelectorAll('.meet-card');
-
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
+// Handle collapsible sections
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize collapsible sections
+    const collapsibles = document.querySelectorAll('.collapsible');
+    
+    collapsibles.forEach(collapsible => {
+        const header = collapsible.querySelector('.collapsible-header');
+        const content = collapsible.querySelector('.collapsible-content');
         
-        meetCards.forEach(card => {
-            const title = card.querySelector('h2').textContent.toLowerCase();
-            const date = card.querySelector('.meet-date').textContent.toLowerCase();
-            const details = card.querySelector('.meet-details')?.textContent.toLowerCase() || '';
-            
-            if (title.includes(searchTerm) || date.includes(searchTerm) || details.includes(searchTerm)) {
-                card.style.display = '';
-                card.classList.add('fade-in');
-            } else {
-                card.style.display = 'none';
-                card.classList.remove('fade-in');
-            }
-        });
+        if (header && content) {
+            header.addEventListener('click', () => {
+                const isActive = collapsible.classList.contains('active');
+                
+                // Close all other sections first
+                collapsibles.forEach(other => {
+                    if (other !== collapsible && other.classList.contains('active')) {
+                        other.classList.remove('active');
+                        other.querySelector('.collapsible-content').style.display = 'none';
+                    }
+                });
+                
+                // Toggle current section
+                collapsible.classList.toggle('active');
+                content.style.display = isActive ? 'none' : 'block';
+            });
+        }
     });
-}
-
-// Dark mode toggle
-const themeToggle = document.getElementById('theme-toggle');
-if (themeToggle) {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.innerHTML = '☀️';
+    
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+        
+        // Check saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
     }
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
-    });
-}
-
-// Collapsible functionality for all sections
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle collapsible sections
-    document.querySelectorAll('.collapsible-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const section = header.closest('.collapsible, .meet-card');
-            const content = section.querySelector('.collapsible-content');
-            const isExpanded = header.getAttribute('aria-expanded') === 'true';
-
-            // Toggle active state
-            section.classList.toggle('active');
+    
+    // Search functionality
+    const searchInput = document.getElementById('search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const meetCards = document.querySelectorAll('.meet-card');
             
-            // Update ARIA attributes
-            header.setAttribute('aria-expanded', !isExpanded);
-
-            // Handle meet page collapsible sections differently
-            if (header.closest('.meet-content')) {
-                if (!isExpanded) {
-                    content.style.maxHeight = `${content.scrollHeight}px`;
-                } else {
-                    content.style.maxHeight = '0';
-                }
-            }
-        });
-
-        // Add keyboard support
-        header.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                header.click();
-            }
-        });
-    });
-
-    // Initialize all sections on meet pages as open
-    if (document.querySelector('.meet-content')) {
-        document.querySelectorAll('.meet-content .collapsible').forEach(section => {
-            const header = section.querySelector('.collapsible-header');
-            const content = section.querySelector('.collapsible-content');
-            
-            section.classList.add('active');
-            header.setAttribute('aria-expanded', 'true');
-            content.style.maxHeight = `${content.scrollHeight}px`;
+            meetCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
         });
     }
 });
