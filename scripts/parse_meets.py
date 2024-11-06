@@ -62,6 +62,14 @@ def generate_html(meet_info, team_scores, runners, output_path):
     winner = runners[0] if runners else {'name': 'N/A', 'time': 'N/A', 'team': 'N/A'}
     
     html = f"""<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{meet_info['name']}</title>
+        <link rel="stylesheet" href="../css/styles.css">  
+        <meta name="description" content="Results for {meet_info['name']}">
+    </head>
     <!-- ... header section ... -->
     <header class="header fade-in">
         <h1>{meet_info['name']}</h1>
