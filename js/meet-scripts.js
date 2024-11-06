@@ -46,11 +46,16 @@ if (themeToggle) {
 // Collapsible sections
 document.querySelectorAll('.collapsible-header').forEach(header => {
     header.addEventListener('click', () => {
-        const section = header.parentElement;
+        const section = header.closest('.meet-card');
         section.classList.toggle('active');
         
-        // Add animation class
         const content = section.querySelector('.collapsible-content');
-        content.classList.add('slide-in');
+        if (content) {
+            if (section.classList.contains('active')) {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        }
     });
 });
