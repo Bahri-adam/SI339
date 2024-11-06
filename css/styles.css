@@ -1,24 +1,41 @@
-/* Base styles for mobile-first approach */
+/* Base Variables for Theming */
 :root {
+  /* Light theme colors */
   --primary-color: #2563eb;
   --secondary-color: #1e40af;
   --background-color: #ffffff;
   --text-color: #1f2937;
   --border-color: #e5e7eb;
-  --header-height: 60px;
+  --card-background: #ffffff;
+  --table-stripe: #f3f4f6;
+  --highlight-background: #dbeafe;
+  
+  /* Animation speeds */
   --transition-speed: 0.3s;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
 }
 
-/* Dark mode support */
+/* Dark theme colors using prefers-color-scheme */
 @media (prefers-color-scheme: dark) {
   :root {
+    --primary-color: #3b82f6;
+    --secondary-color: #60a5fa;
     --background-color: #1f2937;
     --text-color: #f3f4f6;
     --border-color: #374151;
+    --card-background: #111827;
+    --table-stripe: #283548;
+    --highlight-background: #1e3a8a;
   }
 }
 
-/* Reduced motion support */
+/* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -28,7 +45,7 @@
   }
 }
 
-/* Base resets and typography */
+/* Base Mobile-First Styles */
 * {
   margin: 0;
   padding: 0;
@@ -36,60 +53,125 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
 }
 
-/* Header styles */
+/* Header & Navigation */
 .header {
+  background-color: var(--primary-color);
+  padding: var(--spacing-md);
   position: sticky;
   top: 0;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem;
   z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
+  color: white;
   font-size: 1.25rem;
   text-align: center;
+  margin-bottom: var(--spacing-sm);
 }
 
-/* Navigation */
 .nav {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  padding: 0.5rem;
-  background-color: var(--secondary-color);
+  gap: var(--spacing-sm);
 }
 
 .nav a {
   color: white;
   text-decoration: none;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
+  padding: var(--spacing-sm);
+  border-radius: 4px;
   transition: background-color var(--transition-speed);
 }
 
-.nav a:hover, 
+.nav a:hover,
 .nav a:focus {
   background-color: rgba(255, 255, 255, 0.1);
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
-/* Meet list styles */
-.meet-list {
-  padding: 1rem;
-}
-
-.meet-card {
+/* Collapsible Sections */
+.collapsible {
   border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: var(--background-color);
+  border-radius: 4px;
+  margin-bottom: var(--spacing-md);
+}
+
+.collapsible-header {
+  padding: var(--spacing-md);
+  background-color: var(--card-background);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.collapsible-header::after {
+  content: '▼';
+  transition: transform var(--transition-speed);
+}
+
+.collapsible.active .collapsible-header::after {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-speed);
+}
+
+.collapsible.active .collapsible-content {
+  max-height: 2000px;
+}
+
+/* Mobile-First Table Design */
+.table-wrapper {
+  overflow-x: auto;
+  margin: var(--spacing-md) 0;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-background);
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  position: sticky;
+  top: 0;
+}
+
+th, td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-stripe);
+}
+
+/* Card Layouts for Mobile */
+.meet-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform var(--transition-speed);
 }
 
@@ -97,65 +179,27 @@ body {
   transform: translateY(-2px);
 }
 
-/* Results table styles */
-.results-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  overflow-x: auto;
-  display: block;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.results-table th,
-.results-table td {
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  text-align: left;
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.results-table th {
-  background-color: var(--primary-color);
-  color: white;
-  position: sticky;
-  top: var(--header-height);
+.fade-in {
+  animation: fadeIn var(--transition-speed) ease-in;
 }
 
-/* Search functionality */
-.search-container {
-  padding: 1rem;
-  position: sticky;
-  top: var(--header-height);
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--border-color);
+.slide-in {
+  animation: slideIn var(--transition-speed) ease-out;
 }
 
-.search-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.25rem;
-  font-size: 1rem;
-}
-
-/* Accessibility focus styles */
-:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Loading animation */
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.loading {
-  animation: pulse 1.5s infinite;
-}
-
-/* Responsive breakpoints */
-@media (min-width: 640px) {
+/* Desktop Styles */
+@media (min-width: 768px) {
   .header h1 {
     font-size: 1.5rem;
   }
@@ -163,6 +207,60 @@ body {
   .meet-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
+
+  .table-responsive {
+    display: table;
+  }
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+  .meet-card {
+    border: 2px solid CanvasText;
+  }
+  
+  .nav a:focus {
+    outline: 2px solid CanvasText;
+  }
+}
+
+/* Accessibility Improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus Styles */
+:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-speed);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
 }
