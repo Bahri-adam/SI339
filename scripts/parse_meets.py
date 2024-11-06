@@ -2,7 +2,7 @@ import csv
 import os
 
 def parse_early_bird_csv():
-    # Path to the CSV file
+    # Path to the CSV fil
     csv_path = 'meets/37th_Early_Bird_Open_Mens_5000_Meters_HS_Open_5K_24.csv'
     
     meet_info = {}
