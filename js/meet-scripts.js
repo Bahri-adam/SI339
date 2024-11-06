@@ -43,10 +43,10 @@ if (themeToggle) {
     });
 }
 
-// Collapsible sections
+// Collapsible functionality for all sections
 document.querySelectorAll('.collapsible-header').forEach(header => {
     header.addEventListener('click', () => {
-        const section = header.closest('.meet-card');
+        const section = header.closest('.collapsible');
         const content = section.querySelector('.collapsible-content');
         const isExpanded = header.getAttribute('aria-expanded') === 'true';
         
@@ -56,15 +56,15 @@ document.querySelectorAll('.collapsible-header').forEach(header => {
         // Update ARIA attributes
         header.setAttribute('aria-expanded', !isExpanded);
         
-        // Toggle content display
-        if (content) {
-            if (!isExpanded) {
-                content.style.display = 'block';
-                content.classList.add('fade-in');
-            } else {
+        // Toggle content visibility
+        if (!isExpanded) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.display = 'block';
+        } else {
+            content.style.maxHeight = '0';
+            setTimeout(() => {
                 content.style.display = 'none';
-                content.classList.remove('fade-in');
-            }
+            }, 300); // Match your transition time
         }
     });
 
@@ -75,4 +75,15 @@ document.querySelectorAll('.collapsible-header').forEach(header => {
             header.click();
         }
     });
+});
+
+// Initialize all sections as open
+document.querySelectorAll('.collapsible').forEach(section => {
+    const header = section.querySelector('.collapsible-header');
+    const content = section.querySelector('.collapsible-content');
+    
+    section.classList.add('active');
+    header.setAttribute('aria-expanded', 'true');
+    content.style.display = 'block';
+    content.style.maxHeight = content.scrollHeight + 'px';
 });
