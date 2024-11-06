@@ -159,15 +159,87 @@ tr:nth-child(even) {
 .meet-card {
     background-color: var(--card-background);
     border-radius: 8px;
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform var(--transition-speed);
     border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;  /* Contains the content */
 }
 
-.meet-card:hover {
-    transform: translateY(-2px);
+.meet-details {
+    padding: var(--spacing-md);
+}
+
+.stat-card {
+    background-color: var(--highlight-background);
+    padding: var(--spacing-md);
+    border-radius: 4px;
+    margin-bottom: var(--spacing-md);
+}
+
+.meet-date {
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.meet-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-top: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.meet-link:hover {
+    text-decoration: underline;
+}
+
+/* Add collapsible indicator styles */
+.collapsible-header {
+    position: relative;
+    padding-right: 2.5rem; /* Space for the indicator */
+    cursor: pointer;
+    background-color: var(--card-background);
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.collapsible-header::after {
+    content: "";
+    position: absolute;
+    right: 1rem;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    transform: rotate(45deg);
+    transition: transform var(--transition-speed);
+}
+
+.collapsible.active .collapsible-header::after {
+    transform: rotate(-135deg);
+}
+
+/* Add focus indicators for accessibility */
+.collapsible-header:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .collapsible-header::after {
+        border-color: ButtonText;
+    }
+}
+
+/* Reduce motion if preferred */
+@media (prefers-reduced-motion: reduce) {
+    .collapsible-header::after {
+        transition: none;
+    }
 }
 
 /* Search Input */
