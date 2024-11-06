@@ -225,11 +225,54 @@ tr:nth-child(even) {
     border-radius: 8px;
     border: 1px solid var(--border-color);
     margin-bottom: var(--spacing-md);
-    overflow: hidden;  /* Contains the content */
+    overflow: hidden;
 }
 
+.collapsible-header {
+    padding: var(--spacing-md);
+    background-color: var(--card-background);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.collapsible-header::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    position: absolute;
+    right: 20px;
+}
+
+.collapsible.active .collapsible-header::after {
+    transform: rotate(-135deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible.active .collapsible-content {
+    max-height: 1000px; /* Adjust this value based on your content */
+}
+
+/* Meet Details Styles */
 .meet-details {
     padding: var(--spacing-md);
+}
+
+.meet-date {
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
 }
 
 .stat-card {
@@ -239,72 +282,28 @@ tr:nth-child(even) {
     margin-bottom: var(--spacing-md);
 }
 
-.meet-date {
-    color: var(--text-color);
-    font-weight: 500;
-    margin-bottom: var(--spacing-sm);
+/* Different styles for index page vs meet pages */
+.main-content .meet-card .collapsible-content {
+    display: block; /* Show content on index page */
+    max-height: none; /* No max-height restriction on index page */
 }
 
-.meet-link {
-    display: inline-block;
-    color: var(--primary-color);
-    text-decoration: none;
-    margin-top: var(--spacing-sm);
-    font-weight: 500;
+/* Meet page specific styles */
+.meet-content .collapsible-content {
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
 }
 
-.meet-link:hover {
-    text-decoration: underline;
+.meet-content .collapsible.active .collapsible-content {
+    max-height: 2000px; /* Larger value for meet pages with tables */
 }
 
-/* Add collapsible indicator styles */
-.collapsible-header {
-    position: relative;
-    padding-right: 2.5rem; /* Space for the indicator */
-    cursor: pointer;
-    background-color: var(--card-background);
-    padding: var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
+/* Table styles remain the same but add specific meet page class */
+.meet-content .table-scroll-container {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
-.collapsible-header::after {
-    content: "";
-    position: absolute;
-    right: 1rem;
-    width: 10px;
-    height: 10px;
-    border-right: 2px solid var(--text-color);
-    border-bottom: 2px solid var(--text-color);
-    transform: rotate(45deg);
-    transition: transform var(--transition-speed);
-}
-
-.collapsible.active .collapsible-header::after {
-    transform: rotate(-135deg);
-}
-
-/* Add focus indicators for accessibility */
-.collapsible-header:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: -2px;
-}
-
-/* High contrast mode support */
-@media (forced-colors: active) {
-    .collapsible-header::after {
-        border-color: ButtonText;
-    }
-}
-
-/* Reduce motion if preferred */
-@media (prefers-reduced-motion: reduce) {
-    .collapsible-header::after {
-        transition: none;
-    }
-}
 
 /* Search Input */
 .search-input {
