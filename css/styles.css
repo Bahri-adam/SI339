@@ -1,5 +1,4 @@
 :root {
-    /* Light theme colors */
     --primary-color: #2563eb;
     --secondary-color: #1e40af;
     --background-color: #ffffff;
@@ -8,11 +7,7 @@
     --card-background: #ffffff;
     --table-stripe: #f3f4f6;
     --highlight-background: #dbeafe;
-
-    /* Animation speeds */
-    --transition-speed: 0.3s;
     
-    /* Spacing */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -31,44 +26,28 @@
     --highlight-background: #1e3a8a;
 }
 
-/* Base Mobile-First Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Base styles */
 body {
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.5;
     color: var(--text-color);
     background-color: var(--background-color);
-    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: 0;
 }
 
-/* Enhanced Header & Navigation */
+/* Header */
 .header {
     background-color: var(--primary-color);
     padding: var(--spacing-md);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header h1 {
     color: white;
-    font-size: 1.25rem;
-    text-align: center;
-    margin-bottom: var(--spacing-sm);
 }
 
 .nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav a {
@@ -76,141 +55,96 @@ body {
     text-decoration: none;
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: 4px;
-    transition: background-color var(--transition-speed);
-    position: relative;
-    text-align: center;
-}
-
-.nav a[aria-current="page"] {
-    background-color: rgba(255, 255, 255, 0.2);
-    font-weight: bold;
 }
 
 .nav a:hover,
 .nav a:focus {
     background-color: rgba(255, 255, 255, 0.1);
-    outline: 2px solid white;
-    outline-offset: 2px;
 }
 
-/* Table Scroll Container */
-.table-scroll-container {
-    max-height: 400px;
-    overflow-y: auto;
+/* Main content */
+.main-content {
+    padding: var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Meet Cards - Index Page */
+.meet-list .meet-card {
+    background-color: var(--card-background);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    position: relative;
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
 }
 
-/* Sticky Headers */
-.sticky-header {
-    position: sticky;
-    top: 0;
-    background-color: var(--primary-color);
-    z-index: 1;
-    /* Ensure header text stays visible when scrolling */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.meet-list .meet-card .meet-details {
+    padding: var(--spacing-md);
 }
 
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
+/* Meet Pages */
+.meet-content {
+    padding: var(--spacing-md);
 }
 
-/* Smooth Scrolling */
-.table-scroll-container {
-    scroll-behavior: smooth;
-}
-
-/* Scrollbar Styling */
-.table-scroll-container::-webkit-scrollbar {
-    width: 12px;
-}
-
-.table-scroll-container::-webkit-scrollbar-track {
-    background: var(--card-background);
-}
-
-.table-scroll-container::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 6px;
-    border: 3px solid var(--card-background);
-}
-
-/* High Contrast Mode Support */
-@media (forced-colors: active) {
-    .table-scroll-container {
-        border: 2px solid CanvasText;
-    }
-    
-    .sticky-header {
-        border: 1px solid CanvasText;
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .table-scroll-container {
-        scroll-behavior: auto;
-    }
-}
-
-/* Collapsible Sections */
 .collapsible {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     margin-bottom: var(--spacing-md);
-}
-.collapsible-header {
-    cursor: pointer;
-    padding: 1rem;
     background-color: var(--card-background);
-    border-bottom: 1px solid var(--border-color);
+}
+
+.collapsible-header {
+    padding: var(--spacing-md);
+    background-color: var(--card-background);
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+.collapsible-header::after {
+    content: "▼";
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+
+.collapsible.active .collapsible-header::after {
+    transform: rotate(180deg);
 }
 
 .collapsible-content {
     display: none;
-    padding: 1rem;
+    padding: var(--spacing-md);
 }
 
 .collapsible.active .collapsible-content {
     display: block;
 }
 
-/* Add clear hover states */
-.collapsible-header:hover {
-    background-color: var(--highlight-background);
-}
-
-/* Mobile-First Table Design */
-.table-wrapper {
+/* Tables */
+.table-scroll-container {
     overflow-x: auto;
     margin: var(--spacing-md) 0;
-    border-radius: 4px;
     border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--card-background);
 }
 
 th {
     background-color: var(--primary-color);
     color: white;
-    font-weight: 600;
     text-align: left;
+    padding: var(--spacing-md);
     position: sticky;
     top: 0;
 }
 
-th, td {
+td {
     padding: var(--spacing-md);
     border-bottom: 1px solid var(--border-color);
 }
@@ -219,165 +153,28 @@ tr:nth-child(even) {
     background-color: var(--table-stripe);
 }
 
-/* Card Layouts */
-.meet-card {
-    background-color: var(--card-background);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    margin-bottom: var(--spacing-md);
-    overflow: hidden;
-}
-
-.collapsible-header {
-    padding: var(--spacing-md);
-    background-color: var(--card-background);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    position: relative;
-}
-
-.collapsible-header::after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-right: 2px solid var(--text-color);
-    border-bottom: 2px solid var(--text-color);
-    transform: rotate(45deg);
-    transition: transform 0.3s ease;
-    position: absolute;
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
     right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
-.collapsible.active .collapsible-header::after {
-    transform: rotate(-135deg);
-}
-
-.collapsible-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
-.collapsible.active .collapsible-content {
-    max-height: 1000px; /* Adjust this value based on your content */
-}
-
-/* Meet Details Styles */
-.meet-details {
-    padding: var(--spacing-md);
-}
-
-.meet-date {
-    font-weight: 500;
-    margin-bottom: var(--spacing-sm);
-}
-
+/* Stats Card */
 .stat-card {
     background-color: var(--highlight-background);
     padding: var(--spacing-md);
     border-radius: 4px;
     margin-bottom: var(--spacing-md);
-}
-
-/* Different styles for index page vs meet pages */
-.main-content .meet-card .collapsible-content {
-    display: block; /* Show content on index page */
-    max-height: none; /* No max-height restriction on index page */
-}
-
-/* Meet page specific styles */
-.meet-content .collapsible-content {
-    max-height: 0;
-    transition: max-height 0.3s ease-out;
-}
-
-.meet-content .collapsible.active .collapsible-content {
-    max-height: 2000px; /* Larger value for meet pages with tables */
-}
-
-/* Table styles remain the same but add specific meet page class */
-.meet-content .table-scroll-container {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-
-/* Search Input */
-.search-input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
-    background-color: var(--card-background);
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.search-input::placeholder {
-    color: var(--text-color);
-    opacity: 0.7;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.fade-in {
-    animation: fadeIn var(--transition-speed) ease-in;
-}
-
-.slide-in {
-    animation: slideIn var(--transition-speed) ease-out;
-}
-
-/* Desktop Styles */
-@media (min-width: 768px) {
-    .header h1 {
-        font-size: 1.5rem;
-    }
-
-    .meet-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: var(--spacing-md);
-    }
-
-    .table-responsive {
-        display: table;
-    }
-}
-
-/* Mobile Navigation */
-@media (max-width: 600px) {
-    .nav {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav a {
-        width: 100%;
-    }
-}
-
-/* High Contrast Mode */
-@media (forced-colors: active) {
-    .meet-card {
-        border: 2px solid CanvasText;
-    }
-    
-    .nav a:focus {
-        outline: 2px solid CanvasText;
-    }
 }
 
 /* Accessibility */
@@ -389,47 +186,11 @@ tr:nth-child(even) {
     margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
     border: 0;
 }
 
-/* Focus Styles */
-:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-/* Theme Toggle */
-.theme-toggle {
-    position: fixed;
-    bottom: 20px;  /* Explicit pixel values */
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 9999;  /* Ensure it's always on top */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    padding: 0;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-}
-
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
     }
 }
