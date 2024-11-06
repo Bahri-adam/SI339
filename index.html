@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross Country Meet Results</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="Cross Country meet results for Skyline High School 2024 season">
+</head>
+<body>
+    <header class="header">
+        <h1>Cross Country Meet Results</h1>
+        <nav class="nav">
+            <a href="index.html" aria-current="page">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input 
+                type="search" 
+                class="search-input" 
+                placeholder="Search meets..."
+                aria-label="Search meets"
+            >
+        </div>
+
+        <section class="meet-list">
+            <article class="meet-card">
+                <h2>Early Bird Open</h2>
+                <p class="meet-date">August 29, 2024</p>
+                <p class="meet-summary">
+                    Skyline secured 7th place with a score of 186. Matthew Guikema led with 17:35.10,
+                    followed by Nicholas Yuan at 17:44.40.
+                </p>
+                <p class="team-result">Team Place: 7th</p>
+                <a href="meets/early-bird.html" class="meet-link">
+                    View Full Results
+                    <span class="sr-only">for Early Bird Open</span>
+                </a>
+            </article>
+
+            <article class="meet-card">
+                <h2>Bret Clements Bath Invitational</h2>
+                <p class="meet-date">September 7, 2024</p>
+                <p class="meet-summary">
+                    Skyline finished 4th overall with 147 points. Bruno Cifaldi led with 17:07.73 (SR),
+                    Nicholas Yuan followed with 17:13.08 (PR).
+                </p>
+                <p class="team-result">Team Place: 4th</p>
+                <a href="meets/bath.html" class="meet-link">
+                    View Full Results
+                    <span class="sr-only">for Bret Clements Bath Invitational</span>
+                </a>
+            </article>
+
+            <article class="meet-card">
+                <h2>Holly-Duane Raffin Festival</h2>
+                <p class="meet-date">September 14, 2024</p>
+                <p class="meet-summary">
+                    Skyline placed 12th with 309 points. Nicholas Yuan led the team with 17:31.6,
+                    followed by Jack Robichaud (17:43.1).
+                </p>
+                <p class="team-result">Team Place: 12th</p>
+                <a href="meets/holly.html" class="meet-link">
+                    View Full Results
+                    <span class="sr-only">for Holly-Duane Raffin Festival</span>
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cross Country Results</p>
+    </footer>
+
+    <style>
+        /* Additional styles specific to index page */
+        .meet-card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .meet-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .meet-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .meet-summary {
+            margin: 1rem 0;
+        }
+
+        .team-result {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .meet-link {
+            display: inline-block;
+            color: white;
+            background-color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color var(--transition-speed);
+        }
+
+        .meet-link:hover,
+        .meet-link:focus {
+            background-color: var(--secondary-color);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</body>
+</html>
