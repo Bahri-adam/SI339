@@ -47,15 +47,32 @@ if (themeToggle) {
 document.querySelectorAll('.collapsible-header').forEach(header => {
     header.addEventListener('click', () => {
         const section = header.closest('.meet-card');
+        const content = section.querySelector('.collapsible-content');
+        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle the active state
         section.classList.toggle('active');
         
-        const content = section.querySelector('.collapsible-content');
+        // Update ARIA attributes
+        header.setAttribute('aria-expanded', !isExpanded);
+        
+        // Toggle content display
         if (content) {
-            if (section.classList.contains('active')) {
+            if (!isExpanded) {
                 content.style.display = 'block';
+                content.classList.add('fade-in');
             } else {
                 content.style.display = 'none';
+                content.classList.remove('fade-in');
             }
+        }
+    });
+
+    // Add keyboard support
+    header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            header.click();
         }
     });
 });
