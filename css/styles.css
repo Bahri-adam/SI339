@@ -1,4 +1,3 @@
-
 :root {
     /* Light theme colors */
     --primary-color: #2563eb;
@@ -9,6 +8,16 @@
     --card-background: #ffffff;
     --table-stripe: #f3f4f6;
     --highlight-background: #dbeafe;
+
+    /* Animation speeds */
+    --transition-speed: 0.3s;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
 }
 
 [data-theme="dark"] {
@@ -22,54 +31,152 @@
     --highlight-background: #1e3a8a;
 }
 
-/* Update these existing styles */
+/* Base Mobile-First Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: var(--background-color);
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
     color: var(--text-color);
+    background-color: var(--background-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
-.meet-card {
-    background-color: var(--card-background);
+/* Enhanced Header & Navigation */
+.header {
+    background-color: var(--primary-color);
+    padding: var(--spacing-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    color: white;
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 4px;
+    transition: background-color var(--transition-speed);
+    position: relative;
+    text-align: center;
+}
+
+.nav a[aria-current="page"] {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+.nav a:hover,
+.nav a:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Collapsible Sections */
+.collapsible {
     border: 1px solid var(--border-color);
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    border-radius: 4px;
+    margin-bottom: var(--spacing-md);
 }
 
-.table-wrapper table {
+.collapsible-header {
+    padding: var(--spacing-md);
     background-color: var(--card-background);
-    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
 }
 
-.table-wrapper tr:nth-child(even) {
+.collapsible-header::after {
+    content: '▼';
+    transition: transform var(--transition-speed);
+}
+
+.collapsible.active .collapsible-header::after {
+    transform: rotate(180deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed);
+}
+
+.collapsible.active .collapsible-content {
+    max-height: 2000px;
+}
+
+/* Mobile-First Table Design */
+.table-wrapper {
+    overflow-x: auto;
+    margin: var(--spacing-md) 0;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-background);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
     background-color: var(--table-stripe);
 }
 
-/* Theme toggle button styles */
-.theme-toggle {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
+/* Card Layouts */
+.meet-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-speed);
+    border: 1px solid var(--border-color);
 }
 
-.theme-toggle:hover {
-    transform: scale(1.1);
+.meet-card:hover {
+    transform: translateY(-2px);
 }
 
-/* Search input styles */
+/* Search Input */
 .search-input {
     width: 100%;
     padding: 0.75rem;
@@ -85,267 +192,114 @@ body {
     opacity: 0.7;
 }
 
-/* Animation for search results */
-.fade-in {
-    animation: fadeIn 0.3s ease-in;
-}
-
+/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-  
-  /* Animation speeds */
-  --transition-speed: 0.3s;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-}
-
-/* Dark theme colors using prefers-color-scheme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-color: #3b82f6;
-    --secondary-color: #60a5fa;
-    --background-color: #1f2937;
-    --text-color: #f3f4f6;
-    --border-color: #374151;
-    --card-background: #111827;
-    --table-stripe: #283548;
-    --highlight-background: #1e3a8a;
-  }
-}
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Base Mobile-First Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-/* Header & Navigation */
-.header {
-  background-color: var(--primary-color);
-  padding: var(--spacing-md);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header h1 {
-  color: white;
-  font-size: 1.25rem;
-  text-align: center;
-  margin-bottom: var(--spacing-sm);
-}
-
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-sm);
-}
-
-.nav a {
-  color: white;
-  text-decoration: none;
-  padding: var(--spacing-sm);
-  border-radius: 4px;
-  transition: background-color var(--transition-speed);
-}
-
-.nav a:hover,
-.nav a:focus {
-  background-color: rgba(255, 255, 255, 0.1);
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-/* Collapsible Sections */
-.collapsible {
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  margin-bottom: var(--spacing-md);
-}
-
-.collapsible-header {
-  padding: var(--spacing-md);
-  background-color: var(--card-background);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color var(--transition-speed);
-}
-
-.collapsible-header::after {
-  content: '▼';
-  transition: transform var(--transition-speed);
-}
-
-.collapsible.active .collapsible-header::after {
-  transform: rotate(180deg);
-}
-
-.collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--transition-speed);
-}
-
-.collapsible.active .collapsible-content {
-  max-height: 2000px;
-}
-
-/* Mobile-First Table Design */
-.table-wrapper {
-  overflow-x: auto;
-  margin: var(--spacing-md) 0;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: var(--card-background);
-}
-
-th {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: 600;
-  text-align: left;
-  position: sticky;
-  top: 0;
-}
-
-th, td {
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--border-color);
-}
-
-tr:nth-child(even) {
-  background-color: var(--table-stripe);
-}
-
-/* Card Layouts for Mobile */
-.meet-card {
-  background-color: var(--card-background);
-  border-radius: 8px;
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform var(--transition-speed);
-}
-
-.meet-card:hover {
-  transform: translateY(-2px);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
 @keyframes slideIn {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .fade-in {
-  animation: fadeIn var(--transition-speed) ease-in;
+    animation: fadeIn var(--transition-speed) ease-in;
 }
 
 .slide-in {
-  animation: slideIn var(--transition-speed) ease-out;
+    animation: slideIn var(--transition-speed) ease-out;
 }
 
 /* Desktop Styles */
 @media (min-width: 768px) {
-  .header h1 {
-    font-size: 1.5rem;
-  }
+    .header h1 {
+        font-size: 1.5rem;
+    }
 
-  .meet-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing-md);
-  }
+    .meet-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+    }
 
-  .table-responsive {
-    display: table;
-  }
+    .table-responsive {
+        display: table;
+    }
+}
+
+/* Mobile Navigation */
+@media (max-width: 600px) {
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav a {
+        width: 100%;
+    }
 }
 
 /* High Contrast Mode */
 @media (forced-colors: active) {
-  .meet-card {
-    border: 2px solid CanvasText;
-  }
-  
-  .nav a:focus {
-    outline: 2px solid CanvasText;
-  }
+    .meet-card {
+        border: 2px solid CanvasText;
+    }
+    
+    .nav a:focus {
+        outline: 2px solid CanvasText;
+    }
 }
 
-/* Accessibility Improvements */
+/* Accessibility */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Focus Styles */
 :focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
-/* Dark Mode Toggle */
+/* Theme Toggle */
 .theme-toggle {
-  position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform var(--transition-speed);
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-speed);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
