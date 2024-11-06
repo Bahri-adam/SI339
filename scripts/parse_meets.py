@@ -62,19 +62,15 @@ def generate_html(meet_info, team_scores, runners, output_path):
     winner = runners[0] if runners else {'name': 'N/A', 'time': 'N/A', 'team': 'N/A'}
     
     html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{meet_info['name']}</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <meta name="description" content="Results for {meet_info['name']}">
-</head>
-<body>
+    <!-- ... header section ... -->
     <header class="header fade-in">
         <h1>{meet_info['name']}</h1>
-        <nav class="nav" role="navigation">
+        <nav class="nav" role="navigation" aria-label="Main navigation">
             <a href="../index.html">Home</a>
+            <a href="early-bird.html">Early Bird</a>
+            <a href="bath.html">Bath Invitational</a>
+            <a href="holly.html">Holly Festival</a>
+            <a href="jackson.html">Jackson Invitational</a>
         </nav>
     </header>
 
@@ -188,7 +184,9 @@ def main():
         {'csv': 'meets/Bret_Clements_Bath_Invitational_Mens_5000_Meters_Class_1_24.csv',
          'output': 'meets/bath.html'},
         {'csv': 'meets/56th_Holly-Duane_Raffin_Festival_of_Races_Mens_5000_Meters_D1_Boys_24.csv',
-         'output': 'meets/holly.html'}
+         'output': 'meets/holly.html'},
+        {'csv': 'meets/Jackson_Invitational_Mens_5000_Meters_Orange_Division_(1000_+_enrolment)_24.csv',
+         'output': 'meets/jackson.html'}
     ]
     
     for meet in meets:
