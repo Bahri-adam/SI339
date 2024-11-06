@@ -93,6 +93,70 @@ body {
     outline-offset: 2px;
 }
 
+/* Table Scroll Container */
+.table-scroll-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Sticky Headers */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    z-index: 1;
+    /* Ensure header text stays visible when scrolling */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+/* Smooth Scrolling */
+.table-scroll-container {
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+.table-scroll-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+    background: var(--card-background);
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    border: 3px solid var(--card-background);
+}
+
+/* High Contrast Mode Support */
+@media (forced-colors: active) {
+    .table-scroll-container {
+        border: 2px solid CanvasText;
+    }
+    
+    .sticky-header {
+        border: 1px solid CanvasText;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .table-scroll-container {
+        scroll-behavior: auto;
+    }
+}
+
 /* Collapsible Sections */
 .collapsible {
     border: 1px solid var(--border-color);
