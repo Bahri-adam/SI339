@@ -1,16 +1,18 @@
 import csv
 import os
+from pathlib import Path
 
-def parse_early_bird_csv():
-    # Path to the CSV fil
-    csv_path = 'meets/37th_Early_Bird_Open_Mens_5000_Meters_HS_Open_5K_24.csv'
-    
+def ensure_dir_exists(dir_path):
+    """Create directory if it doesn't exist"""
+    Path(dir_path).mkdir(parents=True, exist_ok=True)
+
+def parse_meet_csv(csv_path):
+    """Parse a single meet CSV file"""
     meet_info = {}
     team_scores = []
     skyline_runners = []
     
     with open(csv_path, 'r', encoding='utf-8') as file:
-        # Read file line by line to get meet info first
         lines = file.readlines()
         meet_info = {
             'name': lines[0].strip(),
@@ -18,10 +20,7 @@ def parse_early_bird_csv():
             'url': lines[2].strip()
         }
         
-        # Find where team scores start
-        team_scores_start = None
-        results_start = None
-        
+        # Find data sections
         for i, line in enumerate(lines):
             if 'Place,Team,Score' in line:
                 team_scores_start = i + 1
@@ -30,40 +29,37 @@ def parse_early_bird_csv():
                 break
         
         # Parse team scores
-        if team_scores_start:
-            current_line = team_scores_start
-            while current_line < len(lines):
-                line = lines[current_line].strip()
-                if not line or 'Place,Grade,Name' in line:
-                    break
-                parts = line.split(',')
-                if len(parts) >= 3:
-                    team_scores.append({
-                        'place': parts[0],
-                        'team': parts[1],
-                        'score': parts[2]
-                    })
-                current_line += 1
+        current_line = team_scores_start
+        while current_line < len(lines):
+            line = lines[current_line].strip()
+            if not line or 'Place,Grade,Name' in line:
+                break
+            parts = line.split(',')
+            if len(parts) >= 3:
+                team_scores.append({
+                    'place': parts[0],
+                    'team': parts[1],
+                    'score': parts[2]
+                })
+            current_line += 1
         
-        # Parse individual results for Skyline runners
-        if results_start:
-            current_line = results_start
-            while current_line < len(lines):
-                line = lines[current_line].strip()
-                if not line:
-                    break
-                parts = line.split(',')
-                if len(parts) >= 8 and 'Ann Arbor Skyline' in line:
-                    skyline_runners.append({
-                        'place': parts[0].replace('.', ''),
-                        'grade': parts[1],
-                        'name': parts[2],
-                        'time': parts[4],
-                        'team': parts[5]
-                    })
-                current_line += 1
+        # Parse Skyline results
+        for line in lines[results_start:]:
+            if not line.strip():
+                break
+            parts = line.split(',')
+            if len(parts) >= 8 and 'Ann Arbor Skyline' in line:
+                skyline_runners.append({
+                    'place': parts[0].replace('.', ''),
+                    'grade': parts[1],
+                    'name': parts[2],
+                    'time': parts[4]
+                })
+    
+    return meet_info, team_scores, skyline_runners
 
-    # Generate HTML
+def generate_html(meet_info, team_scores, skyline_runners, output_path):
+    """Generate HTML file for a meet"""
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,13 +138,21 @@ def parse_early_bird_csv():
 </body>
 </html>
 """
-
-    # Create meets directory if it doesn't exist
-    os.makedirs('meets', exist_ok=True)
-    
-    # Write the HTML file
-    with open('meets/early-bird.html', 'w', encoding='utf-8') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
 
+def main():
+    # Ensure directories exist
+    ensure_dir_exists('meets')
+    
+    # Process early bird meet
+    early_bird_path = 'meets/37th_Early_Bird_Open_Mens_5000_Meters_HS_Open_5K_24.csv'
+    if os.path.exists(early_bird_path):
+        meet_info, team_scores, skyline_runners = parse_meet_csv(early_bird_path)
+        generate_html(meet_info, team_scores, skyline_runners, 'meets/early-bird.html')
+        print(f"Generated early-bird.html")
+    
+    # Add other meets here as needed
+
 if __name__ == "__main__":
-    parse_early_bird_csv()
+    main()
