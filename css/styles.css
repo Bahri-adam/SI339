@@ -104,7 +104,7 @@ body {
 }
 
 .collapsible-header::after {
-    content: "▼";
+    content: "â–¼";
     font-size: 0.8em;
     transition: transform 0.3s ease;
 }
@@ -267,3 +267,90 @@ tr:nth-child(even) {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Update for mobile-first design */
+
+/* 1. Remove max-width constraint and implement mobile-first approach */
+.main-content {
+    padding: var(--spacing-md);
+    margin: 0 auto;
+}
+
+/* 2. Mobile-optimized table */
+.table-mobile {
+    display: block;
+    width: 100%;
+}
+
+.table-mobile tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm);
+}
+
+.table-mobile td {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: none;
+}
+
+.table-mobile td::before {
+    content: attr(data-label);
+    font-weight: bold;
+}
+
+/* 3. Mobile-first navigation */
+.nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nav a {
+    padding: var(--spacing-md);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 4. Fluid typography */
+:root {
+    --fluid-type-min: 1rem;
+    --fluid-type-max: 1.25rem;
+    --fluid-screen-min: 20rem;
+    --fluid-screen-max: 48rem;
+}
+
+body {
+    font-size: clamp(
+        var(--fluid-type-min),
+        calc(1rem + 0.5vw),
+        var(--fluid-type-max)
+    );
+}
+
+/* 5. Touch-friendly interactions */
+.meet-card {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.meet-card:active {
+    transform: scale(0.98);
+}
+
+/* 6. Animations for meet cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.meet-card {
+    animation: fadeIn 0.3s ease-out forwards;
+    opacity: 0;
+}
+
+.meet-card:nth-child(2) { animation-delay: 0.1s; }
+.meet-card:nth-child(3) { animation-delay: 0.2s; }
+.meet-card:nth-child(4) { animation-delay: 0.3s; }
