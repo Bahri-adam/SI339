@@ -186,34 +186,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getTableStats() {
-        const tables = document.querySelectorAll('table');
+        // Initialize stats
         let stats = {
             fastest: 'N/A',
             totalRunners: 0,
             totalTeams: 0
         };
-
-        tables.forEach(table => {
-            const rows = table.querySelectorAll('tbody tr');
-            stats.totalRunners += rows.length;
-
-            // Get fastest time from first real time value
-            if (!stats.fastest || stats.fastest === 'N/A') {
-                const firstTimeCell = table.querySelector('tbody tr td:nth-child(4)');
-                if (firstTimeCell) {
-                    stats.fastest = firstTimeCell.textContent;
-                }
+    
+        // Get team scores table (should be the first table with team scores)
+        const teamTable = document.querySelector('.table-scroll-container table');
+        if (teamTable) {
+            // Count teams from the team scores table
+            const teamRows = teamTable.querySelectorAll('tbody tr');
+            stats.totalTeams = teamRows.length;
+        }
+    
+        // Get results table (should be the table with individual results)
+        const resultsTable = document.querySelectorAll('.table-scroll-container table')[1];
+        if (resultsTable) {
+            const rows = resultsTable.querySelectorAll('tbody tr');
+            stats.totalRunners = rows.length;
+    
+            // Get fastest time from first row
+            const firstTimeCell = resultsTable.querySelector('tbody tr td:nth-child(4)');
+            if (firstTimeCell) {
+                stats.fastest = firstTimeCell.textContent;
             }
-
-            // Count unique teams
-            const teams = new Set();
-            rows.forEach(row => {
-                const teamCell = row.querySelector('td:nth-child(5)');
-                if (teamCell) teams.add(teamCell.textContent);
-            });
-            stats.totalTeams = teams.size;
-        });
-
+        }
+    
         return stats;
     }
 
