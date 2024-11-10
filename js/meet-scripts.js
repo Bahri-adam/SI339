@@ -186,23 +186,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getTableStats() {
-        // Initialize stats
         let stats = {
             fastest: 'N/A',
             totalRunners: 0,
             totalTeams: 0
         };
     
-        // Get team scores table (should be the first table with team scores)
-        const teamTable = document.querySelector('.table-scroll-container table');
-        if (teamTable) {
-            // Count teams from the team scores table
-            const teamRows = teamTable.querySelectorAll('tbody tr');
-            stats.totalTeams = teamRows.length;
+        // Find tables within .table-scroll-container
+        const tables = document.querySelectorAll('.table-scroll-container table');
+        
+        // First table should be team scores
+        const teamScoresTable = tables[0];
+        if (teamScoresTable) {
+            // Get team count from team scores table
+            const teamRows = teamScoresTable.querySelectorAll('tbody tr');
+            // Only count rows that have valid team names (not empty rows)
+            stats.totalTeams = Array.from(teamRows)
+                .filter(row => row.querySelector('td:nth-child(2)'))
+                .length;
         }
     
-        // Get results table (should be the table with individual results)
-        const resultsTable = document.querySelectorAll('.table-scroll-container table')[1];
+        // Second table should be results
+        const resultsTable = tables[1];
         if (resultsTable) {
             const rows = resultsTable.querySelectorAll('tbody tr');
             stats.totalRunners = rows.length;
@@ -216,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
         return stats;
     }
-
     // 4. Add Greeting
     function addDynamicGreeting() {
         const header = document.querySelector('.header');
