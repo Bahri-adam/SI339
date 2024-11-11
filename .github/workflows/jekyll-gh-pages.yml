@@ -28,7 +28,7 @@ jobs:
           mkdir -p meets
           mkdir -p css
           mkdir -p js
-          mkdir -p Images
+          mkdir -p images
       - name: Run Python script
         run: |
           python scripts/parse_meets.py
