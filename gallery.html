@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross Country Meet Photos</title>
+    <title>2024 Season Photo Gallery</title>
     <link rel="stylesheet" href="css/styles.css">
-    <meta name="description" content="Photo gallery from cross country meets">
+    <meta name="description" content="2024 cross country season photo gallery">
 </head>
 <body>
     <header class="header fade-in">
@@ -28,66 +28,49 @@
                 please contact the team administrator.</p>
             </div>
 
-            <!-- Meet Photos Section -->
-            <div class="meet-gallery">
-                <h2>Season Highlights</h2>
-                <div class="photo-grid">
-                    <!-- Athletic.net Profile Photos -->
-                    <div class="photo-card">
-                        <img src="Images/18820257.jpg" alt="Cross Country Meet Photo" 
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Early Bird Open</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/18820260.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Bath Invitational</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/25395576.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Holly Festival</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/23636797.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Early Bird Open</div>
-                    </div>
+            <div class="photo-grid">
+                <div class="photo-card" id="photo-1">
+                    <div class="photo-placeholder">Loading...</div>
+                    <img src="images/18820257.jpg" 
+                         alt="Cross Country Meet Photo"
+                         class="gallery-img"
+                         onload="this.style.display='block'; this.previousElementSibling.style.display='none';"
+                         onerror="this.style.display='none'; this.previousElementSibling.textContent='Image not available';">
+                </div>
+                
+                <div class="photo-card" id="photo-2">
+                    <div class="photo-placeholder">Loading...</div>
+                    <img src="images/18820260.jpg" 
+                         alt="Cross Country Meet Photo"
+                         class="gallery-img"
+                         onload="this.style.display='block'; this.previousElementSibling.style.display='none';"
+                         onerror="this.style.display='none'; this.previousElementSibling.textContent='Image not available';">
+                </div>
 
-                    <!-- iPhone Photos -->
-                    <div class="photo-card">
-                        <img src="Images/IMG_9249.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Holly Festival</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/IMG_9242.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Bath Invitational</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/IMG_9243.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Jackson</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="Images/IMG_9244.jpg" alt="Cross Country Meet Photo"
-                             onerror="this.src='/api/placeholder/400/300'">
-                        <div class="photo-caption">Speed Dasher</div>
-                    </div>
+                <div class="photo-card" id="photo-3">
+                    <div class="photo-placeholder">Loading...</div>
+                    <img src="images/25395576.jpg" 
+                         alt="Cross Country Meet Photo"
+                         class="gallery-img"
+                         onload="this.style.display='block'; this.previousElementSibling.style.display='none';"
+                         onerror="this.style.display='none'; this.previousElementSibling.textContent='Image not available';">
+                </div>
+
+                <div class="photo-card" id="photo-4">
+                    <div class="photo-placeholder">Loading...</div>
+                    <img src="images/23636797.jpg" 
+                         alt="Cross Country Meet Photo"
+                         class="gallery-img"
+                         onload="this.style.display='block'; this.previousElementSibling.style.display='none';"
+                         onerror="this.style.display='none'; this.previousElementSibling.textContent='Image not available';">
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
         🌙
     </button>
-
-    <footer>
-        <p>© 2024 Cross Country Team - Contact team administrator for photo inquiries</p>
-    </footer>
 
     <script src="js/meet-scripts.js"></script>
 </body>
